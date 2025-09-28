@@ -8,6 +8,8 @@ A comprehensive human and mouse chromatin open source platform
 
 ![overview.png](/img/overview.png)
 
+![structure.png](/img/structure.png)
+
 Principal Investigator: Chunquan Li, Ph.D.
 
 The First Affiliated Hospital, University of South China, Hengyang 421001, China
