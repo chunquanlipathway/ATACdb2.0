@@ -48,13 +48,11 @@ export default defineComponent({
     const router = useRouter();
     const tfInput = ref();
     const speciesSelect = ref();
-    // 得到参数
     const getParams = () => ({
       speciesType: speciesSelect.value.select,
       tfName: tfInput.value.input
     });
     const buttonClick = (id: String) => {
-      // 点击开始搜索
       if (id === 'start') {
         if (Base.isNull(tfInput.value.input)) {
           Message.error('Please input TF name!');
@@ -72,7 +70,6 @@ export default defineComponent({
         // });
         return;
       }
-      // 点击例子和重设
       tfInput.value.input = id === 'reset' ? '' : id === 'example' ? 'EGR1\nHEY2' : '';
       speciesSelect.value.select = id === 'reset' ? '' : id === 'example' ? 'Human' : '';
     };
@@ -88,3 +85,4 @@ export default defineComponent({
   }
 });
 </script>
+
