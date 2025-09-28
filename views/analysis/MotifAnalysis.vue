@@ -70,7 +70,7 @@ export default defineComponent({
       fileId: '',
       fileTip: `txt files with a size less than 20MB, ${getExampleUrlHtml('data/genes.txt', 'Example of Upload File')}`
     });
-    // 得到例子内容
+
     const getExampleData = () => {
       content.emit('startLoading');
       LocalhostApi.readFile('data/example.bed').then((res: any) => {
@@ -78,7 +78,7 @@ export default defineComponent({
         fileContent.value.input = res;
       });
     };
-    // 加载设置信息
+
     const mountSet = () => {
       fileSwitch.value.value = false;
       data.isUpload = false;
@@ -86,31 +86,31 @@ export default defineComponent({
     onMounted(() => {
       mountSet();
     });
-    // 内容是输入还是上传
+
     const fileChange = (value: boolean) => {
       data.isUpload = value;
     };
-    // 文件上传成功后得到 fileId
+
     const uploadSuccess = (fileId: string) => {
       data.fileId = fileId;
     };
-    // 文件移除(删除远程 MongoDB 中 GridFS)
+
     const fileRemove = () => {
       if (Base.noNull(data.fileId)) {
         FileApi.deleteFile(data.fileId);
         data.fileId = '';
       }
     };
-    // 得到参数
+
     const getParams = (isFile: number) => ({
       content: fileContent.value.input,
       fileId: data.fileId,
       isFile
     });
     const buttonClick = (id: string) => {
-      // 点击开始搜索, 重设, 例子
+
       if (id === 'start') {
-        // 输入信息
+
         if (!fileSwitch.value.value && Base.isNull(fileContent.value.input)) {
           ElNotification({
             title: 'Please check',
@@ -119,7 +119,7 @@ export default defineComponent({
           });
           return;
         }
-        // 文件信息
+
         if (fileSwitch.value.value && Base.isNull(fileUpload.value.fileList)) {
           ElNotification({
             title: 'Please check',
@@ -128,12 +128,12 @@ export default defineComponent({
           });
           return;
         }
-        // 判断是否为输出内容
+
         if (data.isUpload) {
           content.emit('startLoading');
           Time.awaitPromise(data.fileId, 1000, 5 * 60 * 1000).then(() => {
             content.emit('endLoading');
-            // 跳转
+
             Jump.routerQuery(router, '/analysis_gene_score', getParams(1));
           });
         } else {
