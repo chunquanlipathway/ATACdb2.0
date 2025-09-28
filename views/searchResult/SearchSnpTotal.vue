@@ -27,7 +27,6 @@ export default defineComponent({
     const data = reactive({
       tableData: [] as Array<any>
     });
-    // 查询信息
     const listSampleInformation = () => {
       loading.value.startLoading();
       console.log(route.query);
@@ -38,11 +37,6 @@ export default defineComponent({
       });
     };
     onMounted(() => {
-      // 判断路径是否符合要求
-      // if (Base.isNull(route.query.speciesType) || Base.isNull(route.query.tfName)) {
-      //   Jump.routerDefault(router, '/');
-      //   Message.warning(`${route.fullPath}: The path is not feasible!`);
-      // }
       listSampleInformation();
     });
     return {
