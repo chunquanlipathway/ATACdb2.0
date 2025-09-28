@@ -113,13 +113,10 @@ export default defineComponent({
     });
     let judgeTf = false;
     let judgeEcharts = false;
-    // 得到 TF Information
     const getTfInformation = () => {
-      // 开启加载动画
       overviewLoading.value.startLoading();
       SearchApi.getTfInformation(String(route.query.speciesType), data.tfName).then((res: any) => {
         judgeTf = true;
-        // 关闭加载动画
         if (Boolean.judgeMore(judgeTf, judgeEcharts)) {
           overviewLoading.value.endLoading();
         }
@@ -131,21 +128,19 @@ export default defineComponent({
         overviewArrayTable.value.formatTable();
       });
     };
-    // 自适应 Echarts 大小
+
     const overviewResize = () => {
       Time.awaitPromise(data.overviewTableData, 100, 10000, () => overviewLeftRight.value.getLeftLabel().offsetHeight > 0).then(() => {
-        // 设置 echarts 大小
         data.overviewResizeData = {
           width: overviewLeftRight.value.getRightLabel().offsetWidth,
           height: overviewLeftRight.value.getLeftLabel().offsetHeight
         };
       });
     };
-    // 得到 Tissue type 的数量信息
+
     const countTissueTypeByTfName = () => {
       SearchApi.getTissueTypeEchartsDataByTfName(String(route.query.speciesType), String(route.query.tfName)).then((res: any) => {
         judgeEcharts = true;
-        // 关闭加载动画
         if (Boolean.judgeMore(judgeTf, judgeEcharts)) {
           overviewLoading.value.endLoading();
         }
@@ -154,7 +149,7 @@ export default defineComponent({
         overviewResize();
       });
     };
-    // 得到 Motif 信息
+
     const motifUpdateData = () => {
       tfFootprintLoading.value.startLoading();
       SearchApi.listMotifByTfName(String(route.query.speciesType), String(route.query.tfName)).then((res: any) => {
@@ -162,7 +157,7 @@ export default defineComponent({
         data.motifData = res as Array<any>;
       });
     };
-    // 得到 TF 印记等信息
+
     const getTfFootprint = () => {
       tfFootprintTableLoading.value.startLoading();
       return SearchApi.listTfFootprint(String(route.query.speciesType), String(route.query.tfName)).then((res: any) => {
@@ -173,7 +168,7 @@ export default defineComponent({
         });
       });
     };
-    // 得到疾病信息
+
     const getDisease = () => {
       diseaseLoading.value.startLoading();
       SearchApi.listDiseaseByName(String(route.query.tfName)).then((res: any) => {
@@ -181,17 +176,16 @@ export default defineComponent({
         data.diseaseData = res as Array<any>;
       });
     };
-    // 自适应 Echarts 大小
+
     const expressionResize = () => {
       Time.sleep(100).then(() => {
-        // 设置 echarts 大小
         data.expressionResizeData = {
           width: expressionSingleCard.value.getContentWidth() - 50,
           height: 600
         };
       });
     };
-    // 得到表达信息
+
     const getTfNameExpression = (id: string, content: ButtonBase) => {
       expressionSingleCard.value.startLoading();
       SearchApi.getNameExpression(id, String(route.query.tfName)).then((res: any) => {
@@ -256,3 +250,4 @@ export default defineComponent({
   }
 });
 </script>
+
