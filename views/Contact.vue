@@ -42,7 +42,6 @@ export default defineComponent({
   name: 'Contact',
   components: { Project, BaseBr, BaseImage, LeftRight },
   setup() {
-    // 设置响应数据
     const data = reactive({
       contacts: Contacts
     });
@@ -53,3 +52,4 @@ export default defineComponent({
   }
 });
 </script>
+
