@@ -89,13 +89,10 @@ export default defineComponent({
       biosampleNameData: [] as Array<InputSelect>,
       gfsId: ''
     });
-    // 请求数据
     const getBioNameAndSampleId = () => {
       content.emit('startLoading');
-      // 清空
       ArrayUtil.clear(data.biosampleNameData);
       biosampleName.value.select = '';
-      // 获取 Biosample Name 集合
       SearchApi.listBiosampleNameBySpecies(radioData.value.radio).then((res: any) => {
         content.emit('endLoading');
         (res as Array<string>).forEach((item: string) => {
@@ -103,34 +100,28 @@ export default defineComponent({
         });
       });
     };
-    // 内容是输入还是上传
     const fileChange = (value: boolean) => {
       data.isUpload = value;
     };
-    // 选择 Human or Mouse
     const radioChange = (value: string) => {
       data.fileContentTip = setTip(value);
       getBioNameAndSampleId();
     };
-    // 文件上传成功后得到 gfsId
     const uploadSuccess = (gfsId: string) => {
       data.gfsId = gfsId;
     };
-    // 文件移除(删除远程 MongoDB 中 GridFS)
     const fileRemove = () => {
       if (Base.noNull(data.gfsId)) {
         FileApi.deleteFile(data.gfsId);
         data.gfsId = '';
       }
     };
-    // 加载设置信息
     const mountSet = () => {
       radioData.value.radio = ENRICHMENT_RADIO_DATA[0].label;
       data.fileContentTip = setTip(radioData.value.radio);
       fileSwitch.value.value = false;
       data.isUpload = false;
     };
-    // 得到参数
     const getParams = (isFile: number) => ({
       genome: fileContent.value.input,
       speciesType: radioData.value.radio,
@@ -138,7 +129,6 @@ export default defineComponent({
       biosampleName: biosampleName.value.input,
       isFile
     });
-    // 得到例子内容
     const getExampleData = () => {
       content.emit('startLoading');
       LocalhostApi.readFile('data/example.bed').then((res: any) => {
@@ -148,29 +138,23 @@ export default defineComponent({
       });
     };
     const buttonClick = (id: String) => {
-      // 点击开始搜索, 重设, 例子
       if (id === 'start') {
         if (Base.isNull(biosampleName.value.input)) {
           Message.error('Please input biosample name');
           return;
         }
-        // 文件信息
         if (fileSwitch.value.value && Base.isNull(fileUpload.value.fileList)) {
           Message.error('Please input .bed file!');
           return;
         }
-        // 判断是否为输出内容
         if (data.isUpload) {
           content.emit('startLoading');
           Time.awaitPromise(data.gfsId, 1000, 5 * 60 * 1000).then(() => {
             content.emit('endLoading');
-            // 跳转
             Jump.routerQuery(router, '/search_genome_total', getParams(1));
           });
         } else {
-          // 上传文件
           FileApi.formatFile(fileContent.value.input).then((res: any) => {
-            // 跳转
             Jump.routerQuery(router, '/search_genome_total', getParams(0));
           });
         }
@@ -187,19 +171,16 @@ export default defineComponent({
         }
       }
     };
-    // 得到数据
     const getData = () => {
       content.emit('startLoading');
       ArrayUtil.clear(data.biosampleNameData);
       biosampleName.value.input = '';
-      // 获取 Biosample Name 集合
       SearchApi.listBiosampleName().then((res: any) => {
         data.biosampleNameData.push({ label: 'All', value: 'All' });
         (res as Array<string>).forEach((item: string) => {
           data.biosampleNameData.push({ label: item, value: item });
         });
         content.emit('endLoading');
-        // biosampleName.value.input = data.biosampleNameData[1].value;
       });
     };
     onMounted(() => {
@@ -228,3 +209,4 @@ export default defineComponent({
   }
 });
 </script>
+
