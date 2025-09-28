@@ -86,7 +86,6 @@ export default defineComponent({
       isValue: true,
       sampleIdValue: false
     });
-    // 得到数据
     const geneCarUpdateData = () => {
       geneBodyCar.value.startLoading();
       AnalysisApi.listGeneCar(data.fileId, String(route.query.speciesType), data.sampleId).then((res: any) => {
@@ -132,12 +131,9 @@ export default defineComponent({
         geneCarUpdateData();
       });
     };
-    // 画热图
+
     const plotHeatMap = (data: any) => {
-      // 需要先重新添加
       expressionHeadMap.value.innerHTML = '<canvas id="expression_canvas" width="950" height="600"></canvas>';
-      // @ts-ignore CanvasXpress 这个在 ts 中报错, 忽略下一行一切错误
-      // eslint-disable-next-line no-undef,no-new
       new CanvasXpress('expression_canvas', {
         x: {
           names: data.ylabelList
@@ -165,7 +161,6 @@ export default defineComponent({
         highlightVar: ['DBP']
       });
     };
-    // 得到 footprint 信息
     const geneExpression = (table: string) => {
       AnalysisApi.geneExpression(table, data.fileId).then((res: any) => {
         if (Base.isNull(res) || (res.data as number[][]).length < 2) {
@@ -204,9 +199,7 @@ export default defineComponent({
         sampleTable.value.selectionToggleChange([data.sampleTableData[0]]);
       }, 600);
     });
-    // 监控
     watch(() => (sampleId.value ? sampleId.value.select : undefined), (newValue) => {
-      // 更新表列名
       if (newValue && newValue !== '') {
         Time.sleep(1).then(() => {
           data.sampleIdValue = true;
@@ -216,7 +209,6 @@ export default defineComponent({
       immediate: true,
       deep: true
     });
-    // 热图信息
     const buttonClick = (id: string) => {
       geneExpression(id);
     };
@@ -243,3 +235,4 @@ export default defineComponent({
   }
 });
 </script>
+
