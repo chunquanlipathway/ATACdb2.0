@@ -107,7 +107,6 @@ export default defineComponent({
     });
     const resize = () => {
       Time.sleep(100).then(() => {
-        // 设置 echarts 大小
         data.pieHumanResizeData = {
           width: leftRight.value.getLeftLabel().offsetWidth,
           height: 600
@@ -124,7 +123,6 @@ export default defineComponent({
     };
     onMounted(() => {
       resize();
-      // 自动适应大小
       window.onresize = resize;
     });
     return {
@@ -148,3 +146,4 @@ export default defineComponent({
   }
 });
 </script>
+
