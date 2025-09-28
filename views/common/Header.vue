@@ -7,7 +7,6 @@
         </div>
       </template>
       <template #right>
-        <!-- 导航条 -->
         <BaseNav :active="active" :menus="menus"/>
       </template>
     </LeftRight>
@@ -31,14 +30,13 @@ export default defineComponent({
   },
   components: { LeftRight, BaseNav },
   setup() {
-    // 获取路由
+
     const route = useRoute();
-    // 获取刷新函数信息
+
     const onRefresh = inject<Function>('reload');
     const reload = () => onRefresh && onRefresh();
-    // 获取登录信息
+
     watch(() => route.fullPath, () => {
-      // 这个执行函数 isRouterAlive 变量决定刷新区域
       reload();
     });
     return {
@@ -48,3 +46,4 @@ export default defineComponent({
   }
 });
 </script>
+
