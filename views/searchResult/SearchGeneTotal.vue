@@ -50,7 +50,6 @@ export default defineComponent({
       tableData: [] as Array<any>,
       geneAlgorithm: ''
     });
-    // 查询信息
     const listSampleInformation = () => {
       loading.value.startLoading();
       SearchApi.getGeneInformationTotal(route.query).then((res: any) => {
@@ -101,11 +100,6 @@ export default defineComponent({
     };
     onMounted(() => {
       geneSelect.value.select = SEARCH_SELECT_DATA[1].value;
-      // 判断路径是否符合要求
-      // if (Base.isNull(route.query.speciesType) || Base.isNull(route.query.tfName)) {
-      //   Jump.routerDefault(router, '/');
-      //   Message.warning(`${route.fullPath}: The path is not feasible!`);
-      // }
       listSampleInformation();
     });
     return {
