@@ -72,7 +72,6 @@ export default defineComponent({
       geneName: geneInput.value.input
     });
     const buttonClick = (id: String) => {
-      // 点击开始搜索, 重设, 例子
       if (id === 'start') {
         if (Base.isNull(geneInput.value.input)) {
           Message.error('Please input Gene symbol!');
@@ -104,3 +103,4 @@ export default defineComponent({
   }
 });
 </script>
+
