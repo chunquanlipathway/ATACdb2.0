@@ -43,9 +43,7 @@ export default defineComponent({
   setup() {
     const tissue = ref();
     const loading = ref();
-    // 手风琴切换事件
     const change = (val: string) => {
-      // 切换到 tissue 的时候， 重新指定 echarts 宽和高
       if (val === 'tissue') {
         tissue.value.resize();
       }
@@ -74,3 +72,4 @@ export default defineComponent({
   border-right: 1px solid #e4e7ed;
 }
 </style>
+
