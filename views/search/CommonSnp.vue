@@ -3,11 +3,8 @@
     <LeftRight>
       <template #left>
         <BaseSelect title="Species" placeholder="Species  eg:Human" :select-data="speciesData" :change-event="getSampleId" ref="speciesSelect"/>
-<!--        <div class="commonsnp_select_input_template">-->
           <BaseSelect title="Type" :select-data="titeleData" ref="titleSelect"/>
-<!--          <BaseInput placeholder="eg:SNP ID: rs12364930 or SNP Locus: 93474513" ref="snpInput"/>-->
           <BaseInput title="Please input your data" type="textarea" :rows="5" placeholder="eg:SNP ID: rs3824662 or SNP Locus: chr10:8062245" ref="snpInput"/>
-<!--        </div>-->
         <BaseButton :content="buttonContent" :button-click="buttonClick"/>
       </template>
       <template #right>
@@ -61,7 +58,6 @@ export default defineComponent({
       sampleIdData: [] as Array<InputSelect>
     });
     const buttonClick = (id: String) => {
-      // 点击开始搜索, 重设, 例子
       if (id === 'start') {
         if (Base.isNull(snpInput.value.input)) {
           Message.error('Please input SNP ID!');
@@ -99,7 +95,6 @@ export default defineComponent({
     };
     onMounted(() => {
       isEmpty();
-      // listSampleIds();
     });
     return {
       ...toRefs(data),
@@ -115,3 +110,4 @@ export default defineComponent({
   }
 });
 </script>
+
