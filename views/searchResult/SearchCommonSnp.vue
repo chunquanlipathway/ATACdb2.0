@@ -113,7 +113,6 @@ export default defineComponent({
       if (data.species === 'Human') {
         SearchApi.getCommonSnpBySnpId(data.snpId).then((res: any) => {
           overviewLoading.value.endLoading();
-          // 左边
           const { commonSnp, geneList } = res;
           ArrayUtil.clear(data.overviewTableData);
           data.overviewTableData.push({ key: 'SNP ID:', value: commonSnp.rsId });
@@ -123,14 +122,12 @@ export default defineComponent({
           data.overviewTableData.push({ key: 'SNP alt:', value: commonSnp.alt });
           data.overviewTableData.push({ key: 'External link:', value: dbSnpUrl(data.snpId) });
           overviewArrayTable.value.formatTable();
-          // 右边
           data.overviewData = geneList as Array<any>;
         });
       }
       if (data.species === 'Mouse') {
         SearchApi.getMouseSnpBySnpId(data.snpId).then((res: any) => {
           overviewLoading.value.endLoading();
-          // 左边
           const { mouseSnp, geneList } = res;
           ArrayUtil.clear(data.overviewTableData);
           data.overviewTableData.push({ key: 'SNP ID:', value: mouseSnp.rsId });
@@ -140,7 +137,6 @@ export default defineComponent({
           data.overviewTableData.push({ key: 'SNP alt:', value: mouseSnp.alt });
           data.overviewTableData.push({ key: 'External link:', value: dbSnpUrl(data.snpId) });
           overviewArrayTable.value.formatTable();
-          // 右边
           data.overviewData = geneList as Array<any>;
         });
       }
@@ -227,7 +223,6 @@ export default defineComponent({
       regionUpdateData,
       sampleSelectionChange,
       samplePageEvent,
-      // annotationButtonUpdateData,
       buttonClick,
       overviewDescription: COMMON_SNP_OVERVIEW_DESCRIPTION,
       overviewMouseDescription: GENOME_MOUSE_REGION_DESCRIPTION,
@@ -242,3 +237,4 @@ export default defineComponent({
   }
 });
 </script>
+
