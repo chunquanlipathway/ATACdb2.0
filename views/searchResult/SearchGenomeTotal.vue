@@ -1,0 +1,54 @@
+<template>
+  <div id="search_tissue">
+    <div class="search_tissue">
+      <SingleCard :title="{ icon: 'fas fa-list', content: 'Search  results of chromatin accessible regions by genome location' }" ref="loading">
+        <BaseTable :table-data="tableData" :is-service-paging="false" :table-description="tableDescription"/>
+      </SingleCard>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent, onMounted, reactive, ref, toRefs } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import '@/assets/less/views/searchResult/SearchTissue.less';
+import BaseTable from '@/components/table/BaseTable.vue';
+import SearchApi from '@/api/service/searchApi';
+import { GENOME_TOTAL_TABLE_DESCRIPTION } from '@/assets/ts';
+import SingleCard from '@/components/card/SingleCard.vue';
+
+export default defineComponent({
+  name: 'SearchGenomeTotal',
+  components: { SingleCard, BaseTable },
+  setup() {
+    const router = useRouter();
+    const route = useRoute();
+    const loading = ref();
+    const data = reactive({
+      tableData: [] as Array<any>
+    });
+    const getBioNameAndSampleId = () => {
+      console.log(route.query);
+    };
+
+    const regionUpdateData = () => {
+      loading.value.startLoading();
+      SearchApi.listGenomeInfo(route.query).then((res: any) => {
+        loading.value.endLoading();
+        data.tableData = res as Array<any>;
+      });
+    };
+    onMounted(() => {
+      getBioNameAndSampleId();
+      regionUpdateData();
+    });
+    return {
+      getBioNameAndSampleId,
+      ...toRefs(data),
+      loading,
+      regionUpdateData,
+      tableDescription: GENOME_TOTAL_TABLE_DESCRIPTION
+    };
+  }
+});
+</script>
