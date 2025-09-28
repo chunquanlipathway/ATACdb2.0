@@ -30,7 +30,7 @@ export default defineComponent({
     const data = reactive({
       tableData: [] as Array<any>
     });
-    // 查询信息
+
     const listSampleInformation = () => {
       loading.value.startLoading();
       SearchApi.listSampleInformation(String(route.query.speciesType), String(route.query.tissueType), String(route.query.biosampleType)).then((res: any) => {
@@ -39,7 +39,6 @@ export default defineComponent({
       });
     };
     onMounted(() => {
-      // 判断路径是否符合要求
       if (Base.isNull(route.query.speciesType) || Base.isNull(route.query.tissueType) || Base.isNull(route.query.biosampleType)) {
         Jump.routerDefault(router, '/');
         Message.warning(`${route.fullPath}: The path is not feasible!`);
@@ -54,3 +53,4 @@ export default defineComponent({
   }
 });
 </script>
+
