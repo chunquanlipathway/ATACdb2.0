@@ -1,8 +1,6 @@
 <template>
   <BaseLoading id="RegionAnnotation" ref="loading">
       <SingleCard :title="{ icon: 'fas fa-table', content:  `Accessible chromatin region annotation of ATAC_${sampleId}_${regionId}` }">
-<!--      <BaseButton :content="annotationButtonContent" :button-click="annotationButtonClick" v-if="!isMouse" class="button_left"/>-->
-<!--        <BaseButton :content="annotationMouseButtonContent" :button-click="annotationButtonClick" v-if="isMouse" class="button_left"/>-->
         <div v-if="!isMouse">
           <el-button class="purple-annotation-btn"
             :class="button_left"
@@ -49,7 +47,6 @@
       </BaseTable>
         </BaseLoading>
     </SingleCard>
-    <!-- 详细内容 -->
     <BaseDrawer :title="annotationDetailTitle" ref="drawer">
       <BaseTable :table-data="annotationDetailTableData" :is-service-paging="false" :table-description="annotationDetailTableDescription" ref="loadingDrawer"/>
     </BaseDrawer>
@@ -111,23 +108,16 @@ export default defineComponent({
       tableName: '',
       total: '',
       annotationDetailTitle: '',
-      // 是否为小鼠样本展示不同区域注释
       isMouse: false,
-      // 是否展示 Detail 列
       isShow: false,
       annotationDetailTableData: [] as Array<any>,
       annotationDetailTableDescription: [] as Array<TableHead>
     });
-    // 区域注释
     const listRegionAnnotation = (table: string, content: ButtonBase) => {
       tableloading.value.loading = true;
-      // 得到传参值
       const params = content.other as Object;
-      // 添加 table name
       Json.addItem(params, 'name', table);
-      // 清空数据
       ArrayUtil.clear(data.annotationTableData);
-      // 请求返回数据
       RegionDetailApi.listRegionAnnotation(props.sampleId, props.regionId, params).then((res: any) => {
         tableloading.value.loading = false;
         data.annotationTableData = res;
@@ -146,7 +136,6 @@ export default defineComponent({
         data.title = 'Common SNP';
       }
     });
-    // 点击事件
     const annotationButtonClick = (id: string, content: ButtonBase) => {
       data.tableName = id;
       data.isShow = !!content.isShow;
@@ -254,3 +243,4 @@ img + span {
   padding-left: 0!important;
 }
 </style>
+
