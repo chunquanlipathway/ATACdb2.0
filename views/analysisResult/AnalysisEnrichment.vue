@@ -2,16 +2,8 @@
   <div id="analysis_enrichment">
     <BaseLoading class="analysis_enrichment">
       <SingleCard :title="{ icon: 'fas fa-list', content: 'Analysis results of genomic region enrichment' }" ref="loading">
-<!--      <BaseButton :content="buttonContent" :button-click="buttonClick"/>-->
       <BaseTable :table-data="tableData" :is-service-paging="false" :table-description="tableDescription">
-<!--        <template #expand>-->
-<!--          <BaseTable :table-data="subTableData" :is-service-paging="false" :table-description="subTableDescription"/>-->
-<!--        </template>-->
       </BaseTable>
-<!--      &lt;!&ndash; 详细内容 &ndash;&gt;-->
-<!--      <BaseDrawer :title="echartsTitle" ref="drawer">-->
-<!--        <Echarts :resize-value="{ width: 700, height: 500 }" renderer="svg" ref="echarts"/>-->
-<!--      </BaseDrawer>-->
       </SingleCard>
     </BaseLoading>
   </div>
@@ -47,7 +39,6 @@ export default defineComponent({
       echartsData: undefined,
       echartsTitle: ''
     });
-    // 得到数据
     const getEnrichmentData = () => {
       loading.value.startLoading();
       AnalysisApi.analysisEnrichment(route.query).then((res: any) => {
@@ -84,3 +75,4 @@ export default defineComponent({
   }
 });
 </script>
+
