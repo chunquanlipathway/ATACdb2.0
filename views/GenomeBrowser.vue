@@ -29,7 +29,6 @@ export default defineComponent({
   components: { BaseButton },
   setup() {
     const route = useRoute();
-    // 交互式数据
     const data = reactive({
       isHuman: true,
       isMouse: false,
@@ -74,3 +73,4 @@ export default defineComponent({
   }
 });
 </script>
+
