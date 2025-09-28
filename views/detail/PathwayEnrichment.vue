@@ -28,7 +28,6 @@ import BaseSelect from '@/components/input/BaseSelect.vue';
 import config from '@/service/util/plotly';
 import DetailApi from '@/api/service/detailApi';
 
-// 导入 plotly
 const Plotly = require('plotly.js-dist-min');
 
 export default defineComponent({
@@ -54,20 +53,16 @@ export default defineComponent({
       keggBubble: [] as Array<any>
     });
     const goBarDiv = (res: any) => {
-      // 先筛选
       const filteredRes = (res as any[]).filter(
         (item) => item.padjust <= p1.value.select
       );
-      // 再排序（padjust 升序，越小越显著）
       const sortedRes = filteredRes.sort((a, b) => a.padjust - b.padjust);
       data.goData = sortedRes;
     };
     const keggBarDiv = (res: any) => {
-      // 先筛选
       const filteredRes = (res as any[]).filter(
         (item) => item.padjust <= p2.value.select
       );
-      // 再排序（padjust 升序，越小越显著）
       const sortedRes = filteredRes.sort((a, b) => a.padjust - b.padjust);
       data.keggData = sortedRes;
     };
@@ -83,8 +78,7 @@ export default defineComponent({
     };
     const keggBubbleData = () => {
       DetailApi.keggBubble(props.sampleId, p2.value.select).then((res: any) => {
-        const item = res[0]; // 取唯一对象
-        // 🔹每个字段都 slice 前 20
+        const item = res[0];
         const top20 = {
           description: item.description.slice(0, 20),
           padjust: item.padjust.slice(0, 20),
@@ -93,7 +87,7 @@ export default defineComponent({
           sizeList: item.sizeList.slice(0, 20)
         };
 
-        data.keggBubble = [top20]; // ⚠️ 保持和 res 一样是数组包对象的结构
+        data.keggBubble = [top20];
 
         const { counts } = top20;
         const maxCount = Math.max(...counts);
@@ -101,7 +95,7 @@ export default defineComponent({
         const midCount = Math.round((maxCount + minCount) / 2);
         Plotly.newPlot(
           'keggBubbleDiv',
-          keggBubble([top20]), // 保持输入结构不变
+          keggBubble([top20]),
           BubbleKeggLayoutMain(maxCount, midCount, minCount, 1200, 500),
           config
         );
@@ -111,8 +105,7 @@ export default defineComponent({
       loading.value.loading = true;
       DetailApi.goBubble(props.sampleId, p1.value.select).then((res: any) => {
 
-        const item = res[0]; // 取唯一对象
-        // 🔹每个字段都 slice 前 20
+        const item = res[0];
         const top20 = {
           description: item.description.slice(0, 20),
           padjust: item.padjust.slice(0, 20),
@@ -121,7 +114,7 @@ export default defineComponent({
           sizeList: item.sizeList.slice(0, 20)
         };
 
-        data.goBubble = [top20]; // ⚠️ 保持和 res 一样是数组包对象的结构
+        data.goBubble = [top20]; //
 
         const { counts } = top20;
         const maxCount = Math.max(...counts);
@@ -130,7 +123,7 @@ export default defineComponent({
         loading.value.loading = false;
         Plotly.newPlot(
           'goBubbleDiv',
-          goBubble([top20]), // 保持输入结构不变
+          goBubble([top20]),
           BubbleGoLayoutMain(maxCount, midCount, minCount, 1200, 500),
           config
         );
