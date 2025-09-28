@@ -67,7 +67,6 @@ export default defineComponent({
           type: 'error'
         });
       }
-      // 自动适应大小
       window.onresize = () => {
         sampleOverview.value.resize();
       };
@@ -80,3 +79,4 @@ export default defineComponent({
   }
 });
 </script>
+
