@@ -53,7 +53,6 @@ export default defineComponent({
     const route = useRoute();
     const loading = ref();
     const overviewTbody = ref();
-    // 创建 table 下的 tr td
     const addTh = (content: string) => `<th>${content}</th>`;
     const addTd = (content: string) => `<td>${content}</td>`;
     const addTr = (content: string) => `<tr>${content}</tr>`;
@@ -65,12 +64,10 @@ export default defineComponent({
       }
       return addTr(thString);
     };
-    // 响应式数据
     const data = reactive({
       regionData: [] as Array<any>,
       isTF: false
     });
-    // 获取数据
     const getTfBoundByTfNameAndLength = () => {
       loading.value.loading = true;
       AnalysisApi.tfBoundByTfNameAndLength(String(route.query.speciesType), String(route.query.tfName1), String(route.query.tfName2), String(route.query.windowLength)).then((res: any) => {
@@ -79,14 +76,12 @@ export default defineComponent({
         if (tfInformation1 === null) {
           data.isTF = true;
         }
-        // 添加 Sample overview
         let tbodyHtml = trAddThTd(['TF information:', 'TF 1', 'TF 2']);
         tbodyHtml += trAddThTd(['TF name:', tfInformation1.tfName, tfInformation2.tfName]);
         tbodyHtml += trAddThTd(['TF family:', tfInformation1.tfFamily, tfInformation2.tfFamily]);
         tbodyHtml += trAddThTd(['TF ensembl ID:', tfInformation1.ensemblId, tfInformation2.ensemblId]);
         tbodyHtml += trAddThTd(['TF entrez ID:', tfInformation1.tfEntrezId, tfInformation2.tfEntrezId]);
         overviewTbody.value.innerHTML = tbodyHtml;
-        // 表格数据
         console.log(tfBoundInfoList);
         data.regionData = tfBoundInfoList;
       });
@@ -113,3 +108,4 @@ export default defineComponent({
   }
 });
 </script>
+
