@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-// 导入自定义全局变量
+// Import custom global variables
 import setGlobalProperties from '@/service/util/base';
 
 import App from './App.vue';
@@ -7,7 +7,7 @@ import './registerServiceWorker';
 import router from './router';
 import store from './store';
 
-// 添加插件
+// Add plugin
 import installElementPlus from './plugins/element';
 import installFontawesomePlus from './plugins/fontawesome';
 import './plugins/bootstrap';
@@ -19,3 +19,4 @@ setGlobalProperties(app);
 app.use(store)
   .use(router)
   .mount('#app');
+
