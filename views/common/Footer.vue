@@ -30,10 +30,8 @@ export default defineComponent({
   name: 'Footer',
   components: { VerticalDivider },
   setup() {
-    // 获取路由
     const router = useRouter();
     const data = reactive({});
-    // 设置响应数据
     const menuClick = (menu: any) => {
       menu.isShow = true;
       Jump.routerDefault(router, menu.click);
@@ -48,3 +46,4 @@ export default defineComponent({
   }
 });
 </script>
+
