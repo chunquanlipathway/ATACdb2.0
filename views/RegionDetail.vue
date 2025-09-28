@@ -63,7 +63,6 @@ export default defineComponent({
         Jump.routerDefault(router, '/');
         Message.warning(`${route.fullPath}: The path is not feasible!`);
       }
-      // 自动适应大小
       window.onresize = () => {
         regionOverview.value.resize();
         associatedGene.value.resize();
@@ -77,3 +76,4 @@ export default defineComponent({
   }
 });
 </script>
+
