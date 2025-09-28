@@ -111,9 +111,7 @@ export default defineComponent({
         height: 600
       }
     });
-    // 得到基因信息
     const getGeneInformation = () => {
-      // 开启加载动画
       overviewLoading.value.startLoading();
       SearchApi.getGeneInformation(String(route.query.speciesType), data.geneName).then((res: any) => {
         ArrayUtil.clear(data.overviewTableData);
@@ -134,28 +132,21 @@ export default defineComponent({
         }, 300);
       }
     };
-    // 自适应 Echarts 大小
     const overviewResize = () => {
       Time.awaitPromise(data.overviewTableData, 100, 10000, () => overviewLeftRight.value.getLeftLabel().offsetHeight > 0).then(() => {
-        // 设置 echarts 大小
         data.overviewResizeData = {
           width: overviewLeftRight.value.getRightLabel().offsetWidth,
           height: overviewLeftRight.value.getLeftLabel().offsetHeight
         };
       });
     };
-    // 得到 Tissue type 的数量信息
     const countTissueTypeByGeneName = () => {
       SearchApi.getTissueTypeEchartsDataByGeneName(String(route.query.speciesType), String(route.query.geneAlgorithm), String(route.query.geneName)).then((res: any) => {
-        // 关闭加载动画
         overviewLoading.value.endLoading();
-        // echarts
         overviewEcharts.value.drawEcharts(overviewOption(res.xdata, res.ydata));
         overviewResize();
       });
     };
-
-    // 得到 region 信息
     const regionUpdateData = () => {
       regionTable.value.startLoading();
       SearchApi.listRegionByGeneName(String(route.query.speciesType), String(route.query.geneAlgorithm), String(route.query.geneName), data.sampleId).then((res: any) => {
@@ -187,29 +178,24 @@ export default defineComponent({
       }
       regionUpdateData();
     };
-    // 得到疾病信息
     const getDisease = () => {
       SearchApi.listDiseaseByName(String(route.query.geneName)).then((res: any) => {
         data.diseaseData = res as Array<any>;
       });
     };
-    // 自适应 Echarts 大小
     const expressionResize = () => {
       Time.sleep(100).then(() => {
-        // 设置 echarts 大小
         data.expressionResizeData = {
           width: expressionSingleCard.value.getContentWidth(),
           height: 600
         };
       });
     };
-    // 得到表达信息
     const getGeneNameExpression = (id: string, content: ButtonBase) => {
       expressionSingleCard.value.startLoading();
       SearchApi.getNameExpression(id, String(route.query.geneName)).then((res: any) => {
         expressionSingleCard.value.endLoading();
         const { description } = content;
-        // echarts, 此步一定为 true
         if (description) {
           expressionEcharts.value.drawEcharts(expressionOption(description, res.xdata, res.ydata));
           expressionResize();
@@ -265,3 +251,4 @@ export default defineComponent({
   }
 });
 </script>
+
