@@ -62,7 +62,7 @@ export default defineComponent({
     const windowLength = ref();
     const speciesSelect = ref();
     const buttonClick = (id: string) => {
-      // 点击开始搜索, 重设, 例子
+
       if (id === 'start') {
         if (Base.isNull(tfName1.value.input)) {
           Message.error('Please input TF name 1!');
@@ -88,7 +88,6 @@ export default defineComponent({
         tfName2.value.input = '';
         windowLength.value.input = '';
       } else if (id === 'example') {
-        // 定义 sample ID 默认值
         speciesSelect.value.select = 'Human';
         tfName1.value.input = 'TP63';
         tfName2.value.input = 'SPIB';
@@ -118,3 +117,4 @@ export default defineComponent({
   color: white;
 }
 </style>
+
