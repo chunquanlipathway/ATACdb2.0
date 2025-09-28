@@ -54,14 +54,12 @@ export default defineComponent({
     });
     const resize = () => {
       Time.sleep(100).then(() => {
-        // 设置 echarts 大小
         data.resizeData = {
           width: leftRight.value.getRightLabel().offsetWidth,
           height: leftRight.value.getLeftLabel().offsetHeight
         };
       });
     };
-    // 得到数据
     const getRegionOverview = () => {
       loading.value.loading = true;
       ArrayUtil.clear(data.overviewTableData);
@@ -78,7 +76,6 @@ export default defineComponent({
           data.overviewTableData.push({ key: 'Fold change:', value: res.foldChange });
           data.overviewTableData.push({ key: '-Log10Pvalue:', value: res.pvalue });
           data.overviewTableData.push({ key: '-Log10Qvalue:', value: res.qvalue });
-          // 构建连接
           const ucscHref = `<a href="${UCSCurl(sampleOverview.region)}" target="_blank" class="UCSC_style">UCSC</a>`;
           const loc = `${res.chr}:${res.start}..${res.end}`;
           const Track = `${res.sampleId}.bed`;
@@ -98,10 +95,6 @@ export default defineComponent({
           data.overviewTableData.push({ key: 'Tissue type:', value: pseudoBulkOverview.tissueType });
           data.overviewTableData.push({ key: 'Genomic region:', value: `${res.chr}:${res.start}-${res.end}` });
           data.overviewTableData.push({ key: 'Region length:', value: `${res.size} bp` });
-          // data.overviewTableData.push({ key: 'Fold change:', value: res.foldChange });
-          // data.overviewTableData.push({ key: '-Log10Pvalue:', value: -Math.log10(Number(res.pvalue)).toFixed(3) });
-          // data.overviewTableData.push({ key: '-Log10Qvalue:', value: -Math.log10(Number(res.qvalue)).toFixed(3) });
-          // 构建连接
           const ucscHref = `<a href="${UCSCurl(pseudoBulkOverview.region)}" target="_blank" class="UCSC_style">UCSC</a>`;
           const loc = `${res.chr}:${res.start}..${res.end}`;
           const Track = `${res.sampleId}.bed`;
@@ -114,7 +107,6 @@ export default defineComponent({
         }
       });
       RegionDetailApi.getRegionTfGeneGraph(props.sampleId, props.regionId).then((res: any) => {
-        // echarts graph
         const graphOption = overviewGraphOption(res);
         overviewEcharts.value.drawEcharts(graphOption);
       });
@@ -133,3 +125,4 @@ export default defineComponent({
   }
 });
 </script>
+
