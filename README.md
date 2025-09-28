@@ -6,7 +6,7 @@
 A comprehensive human and mouse chromatin open source platform
 
 
-![overview.png](database/img/overview.png)
+![overview.png](/img/overview.png)
 
 Principal Investigator: Chunquan Li, Ph.D.
 
