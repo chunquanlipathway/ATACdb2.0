@@ -254,7 +254,6 @@ export default defineComponent({
     const BulkMouseLoading = ref();
     const PseudoBulkHumanLoading = ref();
     const PseudoBulkMouseLoading = ref();
-    // 设置响应数据
     const data = reactive({
       sampleData: [] as Array<any>,
       listBulkHuman: [] as Array<KeyValue>,
@@ -411,3 +410,4 @@ export default defineComponent({
   text-align: center;
 }
 </style>
+
