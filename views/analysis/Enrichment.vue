@@ -11,7 +11,6 @@
         <BaseBr/>
         <BaseSelect title="Tissue type: " :select-data="tissueTypeData" ref="tissueType"/>
         <BaseBr/>
-        <!-- 最大最小和 p—value 限制 -->
         <div class="min_max_p_value">
           <BaseSelect title="P-value: " clearable :select-data="pValueSelectData" ref="pvalue"/>
         </div>
@@ -93,7 +92,7 @@ export default defineComponent({
       isUpload: false,
       gfsId: ''
     });
-    // 得到例子内容
+
     const getExampleData = () => {
       content.emit('startLoading');
       LocalhostApi.readFile('data/example.bed').then((res: any) => {
@@ -103,7 +102,7 @@ export default defineComponent({
         tissueType.value.select = 'Breast';
       });
     };
-    // 加载设置信息
+
     const mountSet = () => {
       radioData.value.radio = ENRICHMENT_RADIO_DATA[0].label;
       data.fileContentTip = setTip(radioData.value.radio);
@@ -113,7 +112,6 @@ export default defineComponent({
     const getData = () => {
       ArrayUtil.clear(data.tissueTypeData);
       data.tissueTypeData.push({ label: 'All', value: 'All' });
-      // 获取 tissueTypeData 集合
       SearchApi.listTissueBySpecies(radioData.value.radio).then((res: any) => {
         (res as Array<string>).forEach((item: string) => {
           data.tissueTypeData.push({ label: item, value: item });
@@ -125,27 +123,27 @@ export default defineComponent({
       mountSet();
       getData();
     });
-    // 选择 Human or Mouse
+
     const radioChange = (value: string) => {
       data.fileContentTip = setTip(value);
       getData();
     };
-    // 内容是输入还是上传
+
     const fileChange = (value: boolean) => {
       data.isUpload = value;
     };
-    // 文件上传成功后得到 gfsId
+
     const uploadSuccess = (gfsId: string) => {
       data.gfsId = gfsId;
     };
-    // 文件移除(删除远程 MongoDB 中 GridFS)
+
     const fileRemove = () => {
       if (Base.noNull(data.gfsId)) {
         FileApi.deleteFile(data.gfsId);
         data.gfsId = '';
       }
     };
-    // 得到参数
+
     const getParams = (isFile: number) => ({
       genome: fileContent.value.input,
       speciesType: radioData.value.radio,
@@ -155,30 +153,30 @@ export default defineComponent({
       isFile
     });
     const buttonClick = (id: string) => {
-      // 点击开始搜索, 重设, 例子
+
       if (id === 'start') {
-        // 输入信息
+
         if (!fileSwitch.value.value && Base.isNull(fileContent.value.input)) {
           Message.error(data.fileContentTip);
           return;
         }
-        // 文件信息
+
         if (fileSwitch.value.value && Base.isNull(fileUpload.value.fileList)) {
           Message.error('Please input .bed file!');
           return;
         }
-        // 判断是否为输出内容
+
         if (data.isUpload) {
           content.emit('startLoading');
           Time.awaitPromise(data.gfsId, 1000, 5 * 60 * 1000).then(() => {
             content.emit('endLoading');
-            // 跳转
+
             Jump.routerQuery(router, '/analysis_enrichment', getParams(1));
           });
         } else {
-          // 上传文件
+
           FileApi.formatFile(fileContent.value.input).then((res: any) => {
-            // 跳转
+
             Jump.routerQuery(router, '/analysis_enrichment', getParams(0));
           });
         }
@@ -216,3 +214,4 @@ export default defineComponent({
   }
 });
 </script>
+
