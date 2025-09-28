@@ -75,10 +75,9 @@ export default defineComponent({
     const cancerType = ref();
     const bioSampleName = ref();
     const category = ref();
-    const activeButton = ref('null'); // 默认激活第三个按钮
+    const activeButton = ref('null');
     const table = ref();
     const defaultBtn = ref();
-    // 设置响应数据
     const data = reactive({
       speciesTypes: [] as Array<CardList>,
       bioSampleTypes: [] as Array<CardList>,
@@ -95,7 +94,7 @@ export default defineComponent({
     let tissueTypeValue = '';
     let cancerTypeValue = '';
     let categoryValue = '';
-    // 获取传入的参数
+
     const params = () => ({
       speciesType: speciesTypeValue,
       biosampleType: bioSampleTypeValue,
@@ -104,7 +103,6 @@ export default defineComponent({
       cancerType: cancerTypeValue,
       category: categoryValue
     });
-    // 添加字段数量
     const addFieldNumber = (nowData: Array<CardList>, newData: Array<any>, name?: CardList) => {
       // const oldData = ArrayUtil.deepCopy(nowData) as Array<CardList>;
       // 清空
@@ -117,12 +115,10 @@ export default defineComponent({
         });
       });
     };
-    // 处理结果值
+
     const handlerResultData = (res: any, label?: string, name?: CardList) => {
-      // 获得数据内容
       const { speciesTypes, bioSampleTypes, bioSampleNames, tissueTypes, cancerTypes, categories, dataBrowseDataList } = res;
       data.tableData = dataBrowseDataList;
-      // 重构数据
       addFieldNumber(data.speciesTypes, speciesTypes as Array<any>, label === 'speciesType' ? name : undefined);
       addFieldNumber(data.bioSampleTypes, bioSampleTypes as Array<any>, label === 'bioSampleType' ? name : undefined);
       addFieldNumber(data.bioSampleNames, bioSampleNames as Array<any>, label === 'bioSampleName' ? name : undefined);
@@ -130,7 +126,7 @@ export default defineComponent({
       addFieldNumber(data.cancerTypes, cancerTypes as Array<any>, label === 'cancerType' ? name : undefined);
       addFieldNumber(data.categories, categories as Array<any>, label === 'category' ? name : undefined);
     };
-    // 更新类型和数量
+
     const updateTypeNumber = () => {
       speciesType.value.dataUpdate();
       bioSampleType.value.dataUpdate();
@@ -139,18 +135,15 @@ export default defineComponent({
       bioSampleName.value.dataUpdate();
       category.value.dataUpdate();
     };
-    // 向后台请求数据
+
     const getDataAndCount = (dataBrowseInfo: any, label?: string, name?: CardList) => {
-      // 加载动画
       loading.value.loading = true;
-      // 获取数据
       return DataBrowseApi.getDataBrowseData(dataBrowseInfo).then((res: any) => {
         loading.value.loading = false;
-        // 获得数据内容
         handlerResultData(res, label, name);
       });
     };
-    // 类型点击事件
+
     const speciesTypeClick = (name: CardList) => {
       speciesTypeValue = name.show ? name.label : '';
       return getDataAndCount(params(), 'speciesType', name).then(updateTypeNumber);
@@ -264,41 +257,40 @@ export default defineComponent({
     const tssEnrichmentScoreShow = (data: any, species: any) => {
       if (species.toLowerCase() === 'human') {
         if (data < 5) {
-          return '<i class="fa-solid fa-circle" style="color: #cf4c4c;"></i>'; // 第一份标签
+          return '<i class="fa-solid fa-circle" style="color: #cf4c4c;"></i>'; 
         } if (data > 7) {
-          return '<i class="fa-solid fa-circle-check" style="color: #3baf48;"></i>'; // 第三份标签
+          return '<i class="fa-solid fa-circle-check" style="color: #3baf48;"></i>'; 
         }
-        return '<i class="fa-solid fa-circle-exclamation" style="color: #FFD43B;"></i>'; // 第二份标签（中间值）
+        return '<i class="fa-solid fa-circle-exclamation" style="color: #FFD43B;"></i>';
       }
       if (species.toLowerCase() === 'mouse') {
         if (data < 10) {
-          return '<i class="fa-solid fa-circle" style="color: #cf4c4c;"></i>'; // 第一份标签
+          return '<i class="fa-solid fa-circle" style="color: #cf4c4c;"></i>';
         } if (data > 15) {
-          return '<i class="fa-solid fa-circle-check" style="color: #3baf48;"></i>'; // 第三份标签
+          return '<i class="fa-solid fa-circle-check" style="color: #3baf48;"></i>'; 
         }
-        return '<i class="fa-solid fa-circle-exclamation" style="color: #FFD43B;"></i>'; // 第二份标签（中间值）
+        return '<i class="fa-solid fa-circle-exclamation" style="color: #FFD43B;"></i>'; 
       }
     };
     const fripShow = (data: any) => {
       if (data < 0.01) {
-        return '<i class="fa-solid fa-circle" style="color: #cf4c4c;"></i>'; // 第一份标签
+        return '<i class="fa-solid fa-circle" style="color: #cf4c4c;"></i>';
       } if (data > 0.03) {
-        return '<i class="fa-solid fa-circle-check" style="color: #3baf48;"></i>'; // 第三份标签
+        return '<i class="fa-solid fa-circle-check" style="color: #3baf48;"></i>';
       }
-      return '<i class="fa-solid fa-circle-exclamation" style="color: #FFD43B;"></i>'; // 第二份标签（中间值）
+      return '<i class="fa-solid fa-circle-exclamation" style="color: #FFD43B;"></i>';
     };
     const sqQualityScoreShow = (data: any) => {
       // eslint-disable-next-line eqeqeq
       if (data == 1) {
-        return '<i class="fa-solid fa-circle-check" style="color: #3baf48;"></i>'; // 绿色
+        return '<i class="fa-solid fa-circle-check" style="color: #3baf48;"></i>';
         // eslint-disable-next-line eqeqeq
       } if (data == 0) {
-        return '<i class="fa-solid fa-circle-exclamation" style="color: #FFD43B;"></i>'; // 黄色
+        return '<i class="fa-solid fa-circle-exclamation" style="color: #FFD43B;"></i>';
       }
-      return '<i class="fa-solid fa-circle" style="color: #cf4c4c;"></i>'; // 红色
+      return '<i class="fa-solid fa-circle" style="color: #cf4c4c;"></i>';
     };
     onMounted(() => {
-      // 更新类型和数量
       getDataAndCount(params()).then(updateTypeNumber);
     });
     return {
@@ -331,3 +323,4 @@ export default defineComponent({
   }
 });
 </script>
+
