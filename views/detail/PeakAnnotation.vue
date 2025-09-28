@@ -10,9 +10,6 @@
         <el-col :span="7">
           <h3 class="visualization_title">Plot B</h3>
           <BaseImage :url="visualizationPlotB"/>
-<!--          <div style="display: flex; justify-content: center; align-items: center; height: 200px;color: gray" v-show="!showB">-->
-<!--            NO Data-->
-<!--          </div>-->
         </el-col>
         <el-col :span="10">
           <ArrayTable :table-data="visualizationTableData" :column-pair="1"/>
@@ -74,7 +71,6 @@ export default defineComponent({
             data.showB = false;
           }
           data.biosampleName = res.biosampleName;
-          // Plot A 和 Plot B
           data.biosampleName = res.biosampleName;
           data.visualizationPlotA = `${STATIC_DETAIL_PATH}peak_annotation/plotA/${res.srrId}_rm_black_plotAnnoPie.png`;
           data.visualizationPlotB = `${STATIC_DETAIL_PATH}peak_annotation/plotB/${res.srrId}_rm_black_tagHeatmap.png`;
@@ -85,7 +81,6 @@ export default defineComponent({
           if (res.plotB === 0) {
             data.showB = false;
           }
-          // Plot A 和 Plot B
           data.biosampleName = res.biosampleName;
           data.visualizationPlotA = `${STATIC_DETAIL_PATH}peak_annotation/plotA/${res.srrId}_rm_black_plotAnnoPie.png`;
           data.visualizationPlotB = `${STATIC_DETAIL_PATH}peak_annotation/plotB/${res.srrId}_rm_black_tagHeatmap.png`;
@@ -95,8 +90,6 @@ export default defineComponent({
           if (res.plotB === 0) {
             data.showB = false;
           }
-          // Plot A 和 Plot B
-          // data.isHaveSrrId = Base.isNull(res.srrId);
           data.biosampleName = res.biosampleName;
           data.visualizationPlotA = `${STATIC_DETAIL_PATH}peak_annotation/p_plotA/${props.sampleId}.png`;
           data.visualizationPlotB = `${STATIC_DETAIL_PATH}peak_annotation/p_plotB/${props.sampleId}.png`;
@@ -118,3 +111,4 @@ export default defineComponent({
   }
 });
 </script>
+
