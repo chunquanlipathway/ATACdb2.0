@@ -31,7 +31,7 @@ export default defineComponent({
     const data = reactive({
       tableData: [] as Array<any>
     });
-    // 查询信息
+
     const listSampleInformation = () => {
       loading.value.startLoading();
       SearchApi.listHomeSampleInformation(String(route.query.title), String(route.query.value)).then((res: any) => {
@@ -41,16 +41,15 @@ export default defineComponent({
     };
     const isInvalid = (str: any) => {
       if (Base.isNull(str)) return true;
-      // 去掉前后空格
+
       const trimmed = str.trim();
-      if (trimmed.length === 0) return true; // 全是空格
-      // 正则：只包含非字母数字的字符（特殊字符）
+      if (trimmed.length === 0) return true; 
+
       if (/^[^a-zA-Z0-9]+$/.test(trimmed)) return true;
       return false;
     };
 
     onMounted(() => {
-      // 判断路径是否符合要求
       if (Base.isNull(route.query.title) || isInvalid(route.query.value)) {
         Jump.routerDefault(router, '/');
         ElNotification({
