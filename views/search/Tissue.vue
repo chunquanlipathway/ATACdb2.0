@@ -76,48 +76,37 @@ export default defineComponent({
         height: 700
       }
     });
-    // 请求数据
+
     const getBiosampleType = () => {
-      // 清空
       ArrayUtil.clear(data.biosampleTypeData);
       data.speciesData.push({ label: 'All', value: 'All' });
       data.speciesData.push({ label: 'Human', value: 'human' });
       data.speciesData.push({ label: 'Mouse', value: 'Mus musculus' });
-      // SearchApi.listBiosampleType(tissueType.value.input).then((res: any) => {
-      //   (res as Array<string>).forEach((item: string) => {
-      //     data.biosampleTypeData.push({ label: item, value: item });
-      //   });
-      // });
     };
     const getBioNameAndSampleIdBySpecies = () => {
       const species = speciesSelect.value?.select;
 
       if (species) {
-        // 清空数据
         ArrayUtil.clear(data.tissueTypeData);
         ArrayUtil.clear(data.biosampleTypeData);
 
-        // 获取 Biosample Name 集合
         SearchApi.listTissueBySpecies(species).then((res: any) => {
           (res as Array<string>).forEach((item: string) => {
             data.tissueTypeData.push({ label: item, value: item });
           });
         });
 
-        // 获取 SampleID 集合
         SearchApi.listBiosampleTypeBySpecies(species).then((res: any) => {
           (res as Array<string>).forEach((item: string) => {
             data.biosampleTypeData.push({ label: item, value: item });
           });
         });
 
-        // 是否为 Human
         data.isHuman = species === 'human';
       }
     };
     const getData = () => {
       ArrayUtil.clear(data.tissueTypeData);
-      // 获取 Biosample Name 集合
       SearchApi.listTissueType().then((res: any) => {
         (res as Array<string>).forEach((item: string) => {
           data.tissueTypeData.push({ label: item, value: item });
@@ -127,7 +116,6 @@ export default defineComponent({
       });
     };
     const buttonClick = (id: String) => {
-      // 点击开始搜索, 重设, 例子
       if (id === 'start') {
         if (Base.isNull(tissueType.value.input)) {
           Message.error('Please input Tissue type!');
@@ -158,11 +146,10 @@ export default defineComponent({
         }, data.biosampleTypeData);
       }
     };
-    // 自适应 Echarts 大小
+
     const resize = () => {
       Time.sleep(100).then(() => {
         if (leftRight.value) {
-          // 设置 echarts 大小
           data.resizeData = {
             width: leftRight.value.getRightLabel().offsetWidth,
             height: leftRight.value.getLeftLabel().offsetHeight + 200
@@ -173,7 +160,6 @@ export default defineComponent({
     onMounted(() => {
       getData();
       speciesSelect.value.select = 'Human';
-      // 自动适应大小
       window.onresize = resize;
     });
     return {
@@ -196,3 +182,4 @@ export default defineComponent({
   }
 });
 </script>
+
