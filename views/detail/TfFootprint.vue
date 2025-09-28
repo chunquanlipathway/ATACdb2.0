@@ -2,7 +2,7 @@
   <BaseLoading id="tf_footprint" ref="loading">
     <!-- TF footprint of Biosample name -->
     <SingleCard :title="footprint_title" ref="footprintLoading">
-      <!-- TF footprint of Biosample name-参数 -->
+      <!-- TF footprint of Biosample name- -->
       <div class="footprint_limit">
         <div>
           <BaseSelect title="Number of binding sites threshold: " width="40%" :select-data="sitesThresholdData" is-line ref="sitesThreshold" :change-event="footprintChangeEvent"/>
@@ -142,14 +142,13 @@ export default defineComponent({
 
     const genomeFootprintResize = () => {
       Time.sleep(100).then(() => {
-        // 设置 echarts 大小
         data.genomeFootprintResizeData = {
           width: genomeFootprintLeftRight.value.getRightLabel().offsetWidth,
           height: genomeFootprintLeftRight.value.getLeftLabel().offsetHeight - 10
         };
       });
     };
-    // 得到 footprint 信息
+
     const genomeFootprintResult = (limitCount: number) => {
       footprintLoading.value.startLoading();
       DetailApi.genomeFootprintResult(props.sampleId, {
@@ -164,12 +163,11 @@ export default defineComponent({
         const { tfFootprintList, echartsData } = res;
         footprintLoading.value.endLoading();
         data.genomeFootprintTableData = tfFootprintList;
-        // echarts 图
         genomeFootprintEcharts.value.drawEcharts(genomeFootprintOption(echartsData));
         genomeFootprintResize();
       });
     };
-    // 印记信息
+
     const footprintChangeEvent = () => {
       if (sitesRank.value.select !== -1) {
         genomeFootprintResult(sitesRank.value.select);
@@ -197,7 +195,6 @@ export default defineComponent({
       genomeFootprintResult(value);
     };
     onMounted(() => {
-      // 初始化数值
       sitesThreshold.value.select = GENOME_SITES_THRESHOLD[0].value;
       scoreThreshold.value.select = GENOME_SCORE_THRESHOLD[0].value;
       tcThreshold.value.select = GENOME_TC_THRESHOLD[0].value;
@@ -252,3 +249,4 @@ export default defineComponent({
   }
 }
 </style>
+
