@@ -21,7 +21,7 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const refresh = ref();
-    // 刷新路由设置
+    // Refresh router settings
     const isRouterAlive = ref<boolean>(true);
     const reload = () => {
       isRouterAlive.value = false;
@@ -38,9 +38,10 @@ export default defineComponent({
         }
       }, 100);
     };
-    // 传参
+    // Passing parameters
     provide('reload', reload);
     return { isRouterAlive, refresh };
   }
 });
 </script>
+
