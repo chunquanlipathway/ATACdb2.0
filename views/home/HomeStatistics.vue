@@ -1,7 +1,5 @@
 <template>
   <div>
-<!--    <LeftRight ref="leftRight">-->
-<!--      <template #left>-->
         <LeftRight ref="leftRight1">
           <template #left>
             <Echarts :option="bar1Option" :resize-value="bar1ResizeData" ref="bar1Echarts"/>
@@ -10,18 +8,6 @@
             <Echarts :option="bar2Option" :resize-value="bar2ResizeData" ref="bar2Echarts"/>
           </template>
         </LeftRight>
-<!--      </template>-->
-<!--      <template #right>-->
-<!--        <LeftRight ref="leftRight2">-->
-<!--          <template #left>-->
-<!--            <Echarts :option="pie1Option" :resize-value="pie1ResizeData" ref="pie1Echarts"/>-->
-<!--          </template>-->
-<!--          <template #right>-->
-<!--            <Echarts :option="pie2Option" :resize-value="pie2ResizeData" ref="pie2Echarts"/>-->
-<!--          </template>-->
-<!--        </LeftRight>-->
-<!--      </template>-->
-<!--    </LeftRight>-->
   </div>
 </template>
 
@@ -81,7 +67,6 @@ export default defineComponent({
     const resize = () => {
       console.log(leftRight1.value.getLeftLabel().offsetWidth);
       Time.sleep(100).then(() => {
-        // 设置 echarts 大小
         data.bar1ResizeData = {
           width: leftRight1.value.getLeftLabel().offsetWidth,
           height: 400
