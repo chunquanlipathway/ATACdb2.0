@@ -27,7 +27,6 @@ export default defineComponent({
   components: { PseudoBulkDataBrowse, HumanDataBrowse, BaseTabs, BaseLoading },
   setup() {
     const loading = ref();
-    // 设置响应数据
     const data = reactive({
       value: true as boolean,
       annotationTabs: [
@@ -46,7 +45,6 @@ export default defineComponent({
       console.log(data.value);
     };
     onMounted(() => {
-      // 更新类型和数量
       data.value = true;
     });
     return {
