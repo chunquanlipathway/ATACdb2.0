@@ -3,7 +3,7 @@
 > ATACdb2.0: http://www.licpathway.net/ATACdb/
 
 
-A comprehensive human and mouse chromatin open source platform
+ATACdb2.0: A comprehensive human and mouse chromatin open source platform
 
 
 ![overview.png](/img/overview.png)
