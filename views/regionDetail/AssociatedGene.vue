@@ -64,12 +64,8 @@ export default defineComponent({
         console.log(data.geneArray);
       });
     };
-    // 画热图
     const plotHeatMap = (data: any) => {
-      // 需要先重新添加
       expressionHeadMap.value.innerHTML = '<canvas id="expression_canvas" width="950" height="600"></canvas>';
-      // @ts-ignore CanvasXpress 这个在 ts 中报错, 忽略下一行一切错误
-      // eslint-disable-next-line no-undef,no-new
       new CanvasXpress('expression_canvas', {
         x: {
           names: data.ylabelList
@@ -97,7 +93,6 @@ export default defineComponent({
         highlightVar: ['DBP']
       });
     };
-    // 得到 footprint 信息
     const genesExpression = (table: string) => {
       Time.awaitData(() => {
         if (data.geneArray.length >= 2) {
@@ -138,3 +133,4 @@ export default defineComponent({
   }
 });
 </script>
+
