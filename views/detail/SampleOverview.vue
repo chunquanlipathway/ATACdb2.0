@@ -157,14 +157,12 @@ export default defineComponent({
     });
     const resize = () => {
       Time.sleep(100).then(() => {
-        // 设置 echarts 大小
         data.resizeData = {
           width: leftRight.value.getRightLabel().offsetWidth,
           height: leftRight.value.getLeftLabel().offsetHeight
         };
       });
     };
-    // 得到数据
     const getRegionOverview = () => {
       loading.value.loading = true;
       ArrayUtil.clear(data.overviewTableData);
@@ -285,3 +283,4 @@ export default defineComponent({
   }
 });
 </script>
+
