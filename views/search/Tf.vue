@@ -64,10 +64,6 @@ export default defineComponent({
         }
         console.log(tfInput.value.input);
         Jump.routerQuery(router, '/search_tf_total', getParams());
-        // Jump.routerQuery(router, '/search_tf', {
-        //   tfName: tfInput.value.input,
-        //   speciesType: speciesSelect.value.select
-        // });
         return;
       }
       tfInput.value.input = id === 'reset' ? '' : id === 'example' ? 'EGR1\nHEY2' : '';
@@ -85,4 +81,5 @@ export default defineComponent({
   }
 });
 </script>
+
 
