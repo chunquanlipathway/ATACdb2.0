@@ -69,7 +69,7 @@ export default defineComponent({
       sampleIdData1: [] as Array<InputSelect>,
       sampleIdData2: [] as Array<InputSelect>
     });
-    // 请求数据
+
     const getSampleId = (biosampleNameLabel: any, sampleIdLabel: any, sampleIdData: Array<InputSelect>) => {
       if (biosampleNameLabel && biosampleNameLabel.input && biosampleNameLabel.input !== '') {
         content.emit('startLoading');
@@ -83,7 +83,7 @@ export default defineComponent({
         });
       }
     };
-    // 请求数据
+
     const getSampleId1 = () => {
       getSampleId(biosampleName1.value, sampleId1.value, data.sampleIdData1);
     };
@@ -92,7 +92,7 @@ export default defineComponent({
     };
     const getSampleIdAnalysis = () => {
       if (biosampleName1.value && biosampleName2.value) {
-        // 判断 name 值是否一样, 一样则一次请求
+
         if (biosampleName1.value.input === biosampleName2.value.input && biosampleName2.value.input && biosampleName2.value.input !== '') {
           content.emit('startLoading');
           ArrayUtil.clear(data.sampleIdData1);
@@ -119,7 +119,7 @@ export default defineComponent({
       biosampleName2.value.input = '';
       sampleId1.value.select = '';
       sampleId2.value.select = '';
-      // 获取 Biosample Name 集合
+
       SearchApi.listBiosampleName().then((res: any) => {
         (res as Array<string>).forEach((item: string) => {
           data.biosampleNameData.push({ label: item, value: item });
@@ -132,7 +132,7 @@ export default defineComponent({
       getData();
     });
     const buttonClick = (id: string) => {
-      // 点击开始搜索, 重设, 例子
+
       if (id === 'start') {
         if (Base.isNull(biosampleName1.value.input)) {
           Message.error('Please input Biosample Name of Sample1!');
@@ -162,7 +162,7 @@ export default defineComponent({
         biosampleName1.value.input = 'Kasumi-1';
         biosampleName2.value.input = 'Kasumi-1';
         getSampleIdAnalysis();
-        // 定义 sample ID 默认值
+
         Time.awaitData(() => {
           // sampleId1.value.select = data.sampleIdData1[0].label;
           sampleId1.value.select = 'Sample_H_3042';
@@ -189,3 +189,4 @@ export default defineComponent({
   }
 });
 </script>
+
