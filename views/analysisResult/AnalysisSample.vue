@@ -158,7 +158,6 @@ export default defineComponent({
     const sampleDifferenceGeneDrawer = ref();
     const sampleOverlapGeneDrawer = ref();
     const macsLoading = ref();
-    // 创建 table 下的 tr td
     const addTh = (content: string) => `<th>${content}</th>`;
     const addTd = (content: string) => `<td>${content}</td>`;
     const addTr = (content: string) => `<tr>${content}</tr>`;
@@ -170,7 +169,6 @@ export default defineComponent({
       }
       return addTr(thString);
     };
-    // 响应式数据
     const data = reactive({
       isMouse: false,
       isBulk: false,
@@ -203,7 +201,6 @@ export default defineComponent({
     });
     const resize = () => {
       Time.sleep(100).then(() => {
-        // 设置 echarts 大小
         data.resizeDataA = {
           width: leftRight.value.getRightLabel().offsetWidth,
           height: overviewLeftRight.value.getLeftLabel().offsetHeight
@@ -214,13 +211,11 @@ export default defineComponent({
         };
       });
     };
-    // 得到 Sample 信息和数量
     const getSampleOverview = () => {
       loading.value.loading = true;
       AnalysisApi.sampleInfoAndCount(String(route.query.sampleId1), String(route.query.sampleId2)).then((res: any) => {
         loading.value.loading = false;
         const { sampleInfo1, sampleInfo2, overlapDifferenceCount, sampleDifferenceList1, sampleDifferenceList2, sampleOverlapList } = res;
-        // 添加 Sample overview
         let tbodyHtml = trAddThTd(['Sample information:', 'Sample 1', 'Sample 2']);
         tbodyHtml += trAddThTd([
           'Sample ID:',
@@ -247,11 +242,10 @@ export default defineComponent({
         data.sample1Info.push({ key: 'GEO/SRR ID:', value: sampleInfo1.srrId });
         data.sample2Info.push({ key: 'GEO/SRR ID:', value: sampleInfo2.srrId });
         overviewTbody.value.innerHTML = tbodyHtml;
-        // 添加 echarts
+
         overviewEchartsA.value.drawEcharts(sampleOverviewOptionA(overlapDifferenceCount.overlapCount1, overlapDifferenceCount.differenceCount1));
         overviewEchartsB.value.drawEcharts(sampleOverviewOptionB(overlapDifferenceCount.overlapCount2, overlapDifferenceCount.differenceCount2));
         resize();
-        // table 数据
         data.differenceData1 = sampleDifferenceList1;
         data.differenceData2 = sampleDifferenceList2;
         data.overlapData = sampleOverlapList;
@@ -263,7 +257,6 @@ export default defineComponent({
       const sample2 = String(route.query.sampleId2);
 
       try {
-        // 使用 /phpLocal 代理来访问 licpathway.net
         const response = await axios.get('/ATACdb_macs2/run_macs', {
           params: { sample1, sample2 }
         });
@@ -281,16 +274,10 @@ export default defineComponent({
           });
           return;
         }
-        console.error('错误:', response.data.message || response.data);
-        throw new Error(response.data.message || '服务器处理失败');
+        console.error('Error:', response.data.message || response.data);
+        throw new Error(response.data.message || 'Server processing failed');
       } catch (error) {
-        console.error('请求失败:', error);
-
-        // 更详细的错误信息
-        if (error.response) {
-          console.error('状态码:', error.response.status);
-          console.error('响应数据:', error.response.data);
-        }
+        console.error('Request failed:', error);
         throw error;
       }
     }
@@ -312,7 +299,6 @@ export default defineComponent({
         data.isBulk = true;
         fetchMacsData();
       }
-      // 自动适应大小
       window.onresize = resize;
     });
     const differenceShow = (row: any) => {
@@ -326,11 +312,9 @@ export default defineComponent({
     const overlapShow = (row: any) => {
       sampleOverlapGeneDrawer.value.loading = true;
       sampleOverlapGeneDrawer.value.drawer = true;
-      // sample 1 的 overlap gene
       AnalysisApi.listGeneBySampleIdAndRegion(row.sample1.sampleId, row.sample1.regionId).then((res: any) => {
         data.overlapGeneData[0].sample1overlapGene = res[0].overlapGene;
       });
-      // sample 2 的 overlap gene
       AnalysisApi.listGeneBySampleIdAndRegion(row.sample2.sampleId, row.sample2.regionId).then((res: any) => {
         data.overlapGeneData[0].sample2overlapGene = res[0].overlapGene;
       });
@@ -363,3 +347,4 @@ export default defineComponent({
   }
 });
 </script>
+
