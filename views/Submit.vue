@@ -67,7 +67,6 @@ export default defineComponent({
           Message.error('Biosample type cannot be empty!');
           return;
         }
-        // 保存
         SubmitApi.save({
           userName: submitter.value.getName(),
           userMail: submitter.value.getEmail(),
@@ -101,3 +100,4 @@ export default defineComponent({
   }
 });
 </script>
+
