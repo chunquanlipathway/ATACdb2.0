@@ -149,9 +149,7 @@ export default defineComponent({
       proximalGene: '',
       closestGene: '',
       annotationDetailTitle: '',
-      // 是否为小鼠样本展示不同区域注释
       isMouse: false,
-      // 是否展示 Detail 列
       isShow: false,
       isGeneMapper: true,
       annotationDetailTableData: [] as Array<any>,
@@ -175,16 +173,11 @@ export default defineComponent({
         loading.value.loading = false;
       });
     };
-    // 区域注释
     const listRegionAnnotation = (table: string, content: ButtonBase) => {
       tableLoading.value.startLoading();
-      // 得到传参值
       const params = content.other as Object;
-      // 添加 table name
       Json.addItem(params, 'name', table);
-      // 清空数据
       ArrayUtil.clear(data.annotationTableData);
-      // 请求返回数据
       RegionDetailApi.listRegionTargetGene(props.sampleId, props.regionId, params).then((res: any) => {
         tableLoading.value.endLoading();
         data.annotationTableData = res;
@@ -211,7 +204,6 @@ export default defineComponent({
         data.isMouse = true;
       }
     });
-    // 点击事件
     const annotationButtonClick = (id: string, content: ButtonBase) => {
       if (id !== 'geneMapper') {
         data.isGeneMapper = false;
@@ -277,3 +269,4 @@ export default defineComponent({
   width: 101%;
 }
 </style>
+
