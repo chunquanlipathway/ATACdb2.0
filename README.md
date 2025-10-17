@@ -1,5 +1,5 @@
 # Welcome to ATACdb2.0!
-
+[![DOI](https://zenodo.org/badge/1065696588.svg)](https://doi.org/10.5281/zenodo.17379557)
 > ATACdb2.0: http://www.licpathway.net/ATACdb/
 
 
